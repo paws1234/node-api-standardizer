@@ -10,7 +10,7 @@ import { generateOpenAPIResponse, zodToOpenAPISchema } from './openapi';
 import { withLogging } from './logging';
 
 // Generic async wrapper for any framework
-export function wrapAsync<T extends (...args: any[]) => any>(handler: T): T {
+const wrapAsync = <T extends (...args: any[]) => any>(handler: T): T => {
   return function (...args: any[]) {
     const maybeNext = args[args.length - 1];
     const isExpress = typeof maybeNext === 'function';
@@ -25,7 +25,7 @@ export function wrapAsync<T extends (...args: any[]) => any>(handler: T): T {
       })(...args);
     }
   } as T;
-}
+};
 
 export {
   expressMiddleware,
@@ -39,4 +39,5 @@ export {
   generateOpenAPIResponse,
   zodToOpenAPISchema,
   withLogging,
+  wrapAsync,
 };
