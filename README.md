@@ -1,33 +1,33 @@
 
-# api-standardizer
 
-## Purpose
+# api-standardizer (Monorepo)
 
-A framework-agnostic middleware/library for Node.js that enforces a consistent JSON response format, validates responses, automatically adds metadata, integrates with observability, and generates OpenAPI/Swagger specs.
+This repository contains the source code, tests, and development setup for the `api-standardizer` package.
 
-## Core Features
+## Contributing
 
-| Feature                        | Description                                                                                       |
-|--------------------------------|---------------------------------------------------------------------------------------------------|
-| Multi-framework support        | Works with Express, Fastify, Koa, Hono, and native Node HTTP servers.                             |
-| Response envelope              | Wraps all responses in a standard structure `{ success, data, error, meta }`.                     |
-| Runtime response validation    | Uses Zod or io-ts schemas to validate responses before sending.                                   |
-| Automatic metadata             | Adds `requestId`, `timestamp`, `executionTime`, `apiVersion` automatically.                      |
-| Error codes & field errors     | Standardizes error codes, messages, optional fields array for validation errors.                  |
-| Pluggable hooks                | Allows custom transformations per client type (e.g., mobile/web) or API version.                 |
-| Logging & observability        | Optional Pino/Winston hooks for automatic logging of response and errors.                         |
-| OpenAPI/Swagger output         | Automatically generates response schemas for documentation.                                       |
-| Async error handling           | Wraps async route handlers to catch unhandled promise rejections and format them automatically.   |
-| Config-driven envelope         | Developers can change structure shape, keys, or metadata via config.                              |
+We welcome contributions! To get started:
 
-## Version Compatibility
+1. Fork this repository and clone it locally.
+2. Install dependencies:
+	```sh
+	cd apipackge
+	npm install
+	```
+3. Run tests:
+	```sh
+	npm test
+	```
+4. Make your changes and submit a pull request.
 
-This package is tested and compatible with:
+See `.github/workflows/nodejs.yml` for CI details and compatibility matrix.
 
-- **Node.js:** 18.x (Express, Fastify only), 20.x (all frameworks)
-- **Express:** 4.18.x, 5.x
-- **Fastify:** 4.x, 5.x
-- **Koa:** 2.x (Node 20+)
-- **Hono:** 3.x, 4.x (Node 20+)
+## Development
 
-See `.github/workflows/nodejs.yml` for CI matrix and compatibility details.
+- All source code is in the `apipackge/` subfolder.
+- The main package README (`apipackge/README.md`) contains usage instructions and API documentation for end users.
+- This root README is for contributors and project maintainers.
+
+## License
+
+MIT
