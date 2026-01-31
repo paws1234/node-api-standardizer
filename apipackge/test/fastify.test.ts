@@ -29,7 +29,7 @@ describe('Fastify Adapter', () => {
       })
     );
 
-    fastify.setErrorHandler((err: { message: any; }, _req: any, reply: { status: (arg0: number) => { (): any; new(): any; send: { (arg0: { success: boolean; data: null; error: { message: any; }; meta: {}; }): void; new(): any; }; }; }) => {
+    fastify.setErrorHandler((err: any, _req: any, reply: any) => {
       reply.status(200).send({
         success: false,
         data: null,
