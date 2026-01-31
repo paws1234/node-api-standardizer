@@ -30,6 +30,33 @@ describe('Node HTTP Adapter', () => {
       done();
     });
   });
+  it('should handle async errors with wrapAsync', (done: jest.DoneCallback) => {
+    const { wrapAsync } = require('../src/index');
+    const server = http.createServer((req, res) => {
+      wrapAsync(async () => {
+        await Promise.reject(new Error('Async fail'));
+      })(req, res, (err: any) => {
+        middleware(req, res, undefined);
+      });
+    });
+    server.listen(0, () => {
+      const port = (server.address() as any).port;
+      http.get({ port, path: '/async-error' }, (res: http.IncomingMessage) => {
+        let body = '';
+        res.on('data', chunk => (body += chunk));
+        res.on('end', () => {
+          server.close();
+          const parsed = JSON.parse(body);
+          expect(parsed.success).toBe(false);
+          expect(parsed.data).toBeNull();
+          expect(parsed.error).toBeDefined();
+          expect(parsed.meta).toBeDefined();
+          done();
+        });
+      });
+    });
+  });
+
   function makeRequest(data: any, callback: (res: any) => void) {
     const server = http.createServer((req: http.IncomingMessage, res: http.ServerResponse) => {
       middleware(req, res, data);
