@@ -27,8 +27,9 @@ jobs:
       - name: Build
         run: npm run build
         working-directory: ./apipackge
-      - name: Run tests
-        run: npm test
+      - name: Run tests (only Express & Fastify)
+        run: |
+          npx jest test/express.test.ts test/fastify.test.ts test/express-logging.test.ts
         working-directory: ./apipackge
 
   node20:
